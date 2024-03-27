@@ -2,8 +2,24 @@ main {
     background: linear-gradient(to bottom, #ffffff 0%, #eeeeee 100%);
     border-bottom: 1px solid rgba(0, 0, 0, .2);
     position: relative;
-    display: grid;
     text-align: center;
     font-family: 'Inter';
-    margin : 3% -8px;
+    margin : 3% -8px auto -8px;
+    display: grid;
+    min-height: 73.23%;
+}
+
+.footer-container{
+    font-family: "Ubuntu";
+    font-weight: 300;
+    text-align: center;
+   height : 30px;
+   margin-top: -30px;
+    background-color: #eeeeee;
+}
+
+.footer-content {
+    margin: 0 auto;
+    text-align: center;
+    opacity: 0.6;
 }
