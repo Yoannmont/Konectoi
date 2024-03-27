@@ -1,0 +1,9 @@
+.usercards{
+    margin : 10px auto;
+    display: inline-table;
+}
+
+p{
+    margin-top: -2%;
+    font-weight: 600;
+}

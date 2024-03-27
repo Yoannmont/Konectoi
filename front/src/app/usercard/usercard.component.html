@@ -1,6 +1,6 @@
 <div class="usercard">
         <div class="name">{{usercard.name}} {{usercard.surname | uppercase}}</div>
-        <div class="email">{{usercard.email}}</div>
-        <div class="date">Inscrit le {{usercard.creationDate | date}}</div>
+        <div class="email">{{usercard.email}}</div> 
         <div class="number">Joignable au {{usercard.phoneNumber}}</div>
-    </div>
+        <div class="date">Inscrit le {{usercard.creationDate | date : "d MMMM YYYY"}}</div>
+</div>

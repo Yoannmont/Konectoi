@@ -6,7 +6,7 @@ import { UserCard } from "../usercard/usercard.model";
 })
 
 export class KonectoiService{
-    usercards : UserCard[] =[{
+    private usercards : UserCard[] =[{
         id : 1,
         name : "Yoann",
         surname : "injji",
@@ -21,9 +21,139 @@ export class KonectoiService{
         email : "balalf",
         creationDate : new Date(),
         phoneNumber : "0707070707"
+    }, 
+    {
+        id : 2,
+        name : "Kevin",
+        surname : "injji",
+        email : "balalf",
+        creationDate : new Date(),
+        phoneNumber : "0707070707"
+    }, 
+    {
+        id : 2,
+        name : "Kevin",
+        surname : "injji",
+        email : "balalf",
+        creationDate : new Date(),
+        phoneNumber : "0707070707"
+    }, 
+    {
+        id : 2,
+        name : "Kevin",
+        surname : "injji",
+        email : "balalf",
+        creationDate : new Date(),
+        phoneNumber : "0707070707"
+    }, 
+    {
+        id : 2,
+        name : "Kevin",
+        surname : "injji",
+        email : "balalf",
+        creationDate : new Date(),
+        phoneNumber : "0707070707"
+    }, 
+    {
+        id : 2,
+        name : "Kevin",
+        surname : "injji",
+        email : "balalf",
+        creationDate : new Date(),
+        phoneNumber : "0707070707"
+    }, 
+    {
+        id : 2,
+        name : "Kevin",
+        surname : "injji",
+        email : "balalf",
+        creationDate : new Date(),
+        phoneNumber : "0707070707"
+    }, 
+    {
+        id : 2,
+        name : "Kevin",
+        surname : "injji",
+        email : "balalf",
+        creationDate : new Date(),
+        phoneNumber : "0707070707"
+    }, 
+    {
+        id : 2,
+        name : "Kevin",
+        surname : "injji",
+        email : "balalf",
+        creationDate : new Date(),
+        phoneNumber : "0707070707"
+    }, 
+    {
+        id : 2,
+        name : "Kevin",
+        surname : "injji",
+        email : "balalf",
+        creationDate : new Date(),
+        phoneNumber : "0707070707"
+    }, 
+    {
+        id : 2,
+        name : "Kevin",
+        surname : "injji",
+        email : "balalf",
+        creationDate : new Date(),
+        phoneNumber : "0707070707"
+    }, 
+    {
+        id : 2,
+        name : "Kevin",
+        surname : "injji",
+        email : "balalf",
+        creationDate : new Date(),
+        phoneNumber : "0707070707"
+    }, 
+    {
+        id : 2,
+        name : "Kevin",
+        surname : "injji",
+        email : "balalf",
+        creationDate : new Date(),
+        phoneNumber : "0707070707"
+    }, 
+    {
+        id : 2,
+        name : "Kevin",
+        surname : "injji",
+        email : "balalf",
+        creationDate : new Date(),
+        phoneNumber : "0707070707"
+    }, 
+    {
+        id : 2,
+        name : "Kevin",
+        surname : "injji",
+        email : "balalf",
+        creationDate : new Date(),
+        phoneNumber : "0707070707"
+    }, 
+    {
+        id : 2,
+        name : "Kevin",
+        surname : "injji",
+        email : "balalf",
+        creationDate : new Date(),
+        phoneNumber : "0707070707"
+    }, 
+    {
+        id : 2,
+        name : "Kevin",
+        surname : "injji",
+        email : "balalf",
+        creationDate : new Date(),
+        phoneNumber : "0707070707"
     }]
 
-    getAllUserCards() : UserCard[] {
+    public connected : boolean = false;
+
+    public getAllUserCards() : UserCard[] {
         return this.usercards;
     }
 };

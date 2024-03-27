@@ -1,4 +1,13 @@
-<header class="header">
+<header>
     <h1>Konectoi</h1>
-    <p>Connexion sécurisée</p>
+    <h3>Connexion sécurisée</h3>
+    <br>
+    <nav *ngIf="!connected">
+
+        <a routerLink="/signup" routerLinkActive="active-link">Inscription</a>
+    </nav>
+    <nav *ngIf="connected">
+        <button (click)="logOut()">Se déconnecter</button>
+    </nav>
 </header>
+

@@ -1,9 +1,39 @@
-.header{
-    text-align: center;
-    background-color: #3dc2b0a9;
-    color:azure;
-    font-size: 30px;
-    padding: 5px;
-    margin: -10px;
-    font-family: "Libre Franklin";
+*, *:after, *:before {
+  margin: 0;
+  padding: 0;
 }
+
+h1{
+    font-size: 80px;
+}
+h3 {
+  font-weight: 400;
+  font-size: 25px;
+}
+
+header {
+  background-color: #50c6d8;
+  margin : -8px -8px auto -8px;
+  padding-top: 25px;
+  text-align: center;
+  font-family: "Ubuntu";
+  color : white;
+  height : 200px;
+  a{
+    position: flex;
+    color : #636bc7;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  a:active{
+    color :white;
+  }
+}
+
+.active-link{
+    font-style: bold;
+}
+
+
+
+
