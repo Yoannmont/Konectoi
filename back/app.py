@@ -6,9 +6,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-url = os.getenv("DATABASE_URL")
 
-connection = psycopg2.connect(url)
+connection = psycopg2.connect(
+    dbname = "Konectoi",
+    user="konectoi",
+    password="konectoi",
+    host="34.133.84.136"
+)
+
 
 # Test GET METHOD 
 @app.get("/test")
@@ -33,9 +38,6 @@ def post_encod():
         return jsonify(data), 200
     else:
         return jsonify({"error": "Method not allowed"}), 405
-    
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)
