@@ -6,34 +6,74 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-url = os.getenv("DATABASE_URL")
 
-connection = psycopg2.connect(url)
+# url = os.getenv("DATABASE_URL")
 
-# Test GET METHOD 
-@app.get("/test")
-def test_route():
-    return jsonify({"message": "This is a test route"})
+connection = psycopg2.connect(database="konectoi",
+                              user="postgre",
+                              password="konectoi",
+                              host="34.133.84.136", port="5432")
+
+cur = connection.cursor()
 
 
-# Test POST METHOD Form Encode body
-@app.post("/post")
-def post_encod():
-    if request.method == 'POST':
-        name = request.form.get('name')
-        age = request.form.get('age')
-        email = request.form.get('email')
-        
-        data = {
-            "name": name,
-            "age": age,
-            "email": email
-        }
-        
-        return jsonify(data), 200
-    else:
-        return jsonify({"error": "Method not allowed"}), 405
+@app.get('/get')
+def test():
+
+    connection = psycopg2.connect(database="konectoi",
+                              user="postgre",
+                              password="konectoi",
+                              host="34.133.84.136", port="5432")
+
+    cur = connection.cursor()
     
+    return "this is a test"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# @app.route("/signup", methods=['POST'])
+# def signup():
+#     data = request.form
+#     if request.method == 'POST':
+#         username = data.get('username')
+#         email = data.get('email')
+#         phonenumber = data.get('phonenumber')
+#         password = data.get('password')
+#         birthdate = data.get('birthdate')
+
+#         if username and email and phonenumber and password and birthdate:
+#             try:
+#                 cursor = connection.cursor()
+#                 query = "INSERT INTO KONECTOI.\"User\" (username, email, phonenumber, password, birthdate) VALUES (%s, %s, %s, %s, %s)"
+#                 cursor.execute(query, (username, email, phonenumber, password, birthdate))
+#                 connection.commit()
+#                 cursor.close()
+#                 return jsonify({"message": "User signed up successfully!"}), 201
+#             except Exception as e:
+#                 print("Error:", e)
+#                 return jsonify({"error": "An error occurred while signing up"}), 500
+#         else:
+#             return jsonify({"error": "Missing required information"}), 400
+#     else:
+#         return jsonify({"error": "Method not allowed"}), 405
+
 
 
 
