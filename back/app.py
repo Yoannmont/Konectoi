@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
-import os
 import psycopg2
+from psycopg2 import extras
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -53,7 +53,7 @@ def signup():
 @app.route("/users", methods=['GET'])
 def get_users():
     try:
-        cursor = connection.cursor()
+        cursor = connection.cursor(cursor_factory=extras.RealDictCursor)
         query = "SELECT * FROM \"Konectoi\".\"User\""
         cursor.execute(query)
         users = cursor.fetchall()
