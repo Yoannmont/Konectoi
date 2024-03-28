@@ -76,6 +76,7 @@ def get_users():
         if cursor:
             cursor.close()
 
+
 @app.route("/signin", methods=['POST'])
 def signin():
     if request.method == 'POST':
@@ -94,6 +95,7 @@ def signin():
             return jsonify({"error": "Missing required fields"}), 400
     else:
         return jsonify({"error": "Method not allowed"}), 405
+
 
 @app.route("/delete/<int:id>", methods=['DELETE'])
 def delete_user(id):
