@@ -1,5 +1,4 @@
         
-from datetime import datetime
 
 
 def getById(connection, user_id):
