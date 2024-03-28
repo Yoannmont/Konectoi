@@ -2,10 +2,13 @@ from flask import Flask, request, jsonify
 import psycopg2
 from psycopg2 import extras
 from dotenv import load_dotenv
+from flask_cors import CORS
+
 
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 
 try:
     connection = psycopg2.connect(
@@ -32,7 +35,7 @@ def signup():
         if username and email and phonenumber and password and birthdate:
             try:
                 cursor = connection.cursor()
-                query = "INSERT INTO \"Konectoi\".\"User\" (username, email, phonenumber, password, birthdate) VALUES (%s, %s, %s, %s, %s)"
+                query = "INSERT INTO \"Konectoi\".\"User\" (username, email, phonenumber, password, birthdate) VALUES (%s, %s, %s, %s, %s);"
                 cursor.execute(query, (username, email, phonenumber, password, birthdate))
                 connection.commit()
                 return jsonify({"message": "User signed up successfully!"}), 201
@@ -54,7 +57,7 @@ def signup():
 def get_users():
     try:
         cursor = connection.cursor(cursor_factory=extras.RealDictCursor)
-        query = "SELECT * FROM \"Konectoi\".\"User\""
+        query = "SELECT * FROM \"Konectoi\".\"User\";"
         cursor.execute(query)
         users = cursor.fetchall()
         cursor.close()
@@ -62,7 +65,12 @@ def get_users():
     
     except Exception as e:
         print("Error:", e)
+        
         return ({"error": "An error occurred while fetching users"}), 500
+    
+    finally:
+        if cursor:
+            cursor.close()
 
 
 if __name__ == "__main__":

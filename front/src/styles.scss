@@ -1,0 +1,11 @@
+html, body, app-root {
+    height: 100%;
+  }
+
+  body {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+@import '@fortawesome/fontawesome-free/css/all.css';
+@import "mdb-angular-ui-kit/assets/scss/mdb.scss";
+

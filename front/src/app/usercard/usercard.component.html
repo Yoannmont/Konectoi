@@ -1,6 +1,15 @@
 <div class="usercard">
-        <div class="name">{{usercard.name}} {{usercard.surname | uppercase}}</div>
-        <div class="email">{{usercard.email}}</div> 
-        <div class="number">Joignable au {{usercard.phoneNumber}}</div>
-        <div class="date">Inscrit le {{usercard.creationDate | date : "d MMMM YYYY"}}</div>
+<div class="card text-center">
+        <div class="bg-image hover-overlay" mdbRipple rippleColor="light">
+                <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/111.webp" class="img-fluid"/>
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+        </div>
+        <div class="card-header">{{usercard.username}}</div>
+        <div class="card-body">
+          <h5 class="card-title">{{usercard.email}}</h5>
+          <p class="card-text">Joignable au {{usercard.phonenumber}}</p>
+          <a routerLink="" class="btn btn-primary">Bouton test</a>
+        </div>
+        <div class="card-footer text-muted">{{usercard.birthdate | date : "d MMMM YYYY"}}</div>
+</div>
 </div>

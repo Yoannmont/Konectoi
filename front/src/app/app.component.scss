@@ -4,9 +4,8 @@ main {
     position: relative;
     text-align: center;
     font-family: 'Inter';
-    margin : 3% -8px auto -8px;
+    margin : 3% auto auto auto;
     display: grid;
-    min-height: 73.23%;
 }
 
 .footer-container{
@@ -19,7 +18,7 @@ main {
 }
 
 .footer-content {
-    margin: 0 auto;
+    margin: 30px auto;
     text-align: center;
     opacity: 0.6;
 }
