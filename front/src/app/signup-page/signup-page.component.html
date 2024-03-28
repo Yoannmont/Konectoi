@@ -1,0 +1,39 @@
+<div class="signup">
+    <p> Pas de compte ? Inscrivez-vous !</p>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmitSignUp()">
+        <div class="form-group">
+            <label class="form-label" for="username">Nom d'utilisateur</label>
+            <input type="text" id="username" class="form-control" formControlName="username" placeholder="ex : Bobby785"/>
+            
+        </div>
+        
+        <div class="form-group">
+            <label mdbInput class="form-label" for="email">Email</label>
+            <input mdbLabel type="email" id="email" class="form-control" formControlName="email" placeholder="ex : bobby@gmail.com"/>
+            
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="password">Mot de passe</label>
+            <input type="password" id="password" class="form-control" formControlName="password"/>
+            
+        </div>
+        <div class="col-auto">
+            <span id="textExample" class="form-text"> Doit faire entre 8 et 20 caractères. </span>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label" for="phonenumber">Numéro de téléphone</label>
+            <input type="tel" id="phonenumber" class="form-control" formControlName="phonenumber" placeholder="ex : 0600000000"/>
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="birthdate">Date de naissance</label>
+            <input matInput [matDatepicker]="picker" formControlName="birthdate" id="birthdate" class="form-control" placeholder="Cliquez pour sélectionner une date">
+            <mat-datepicker-toggle matIconSuffix [for]="picker" ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </div>
+        <button type="submit" class="btn btn-primary" >S'inscrire</button>
+        
+    
+        <div>{{signUpSuccess}}</div>
+    </form>
+  </div>
