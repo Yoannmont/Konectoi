@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 import psycopg2
 from psycopg2 import extras
 from dotenv import load_dotenv
-from tools import user_exists, get_user_by_username_password
+from tools import getById, getByUsernamePassword,checkField
 
 load_dotenv()
 
@@ -20,17 +20,20 @@ except Exception as e:
     print("Error:", e)
 
 
+
 @app.route("/signup", methods=['POST'])
 def signup():
-    data = request.form
     if request.method == 'POST':
-        username = data.get('username')
-        email = data.get('email')
-        phonenumber = data.get('phonenumber')
-        password = data.get('password')
-        birthdate = data.get('birthdate')
-
-        if username and email and phonenumber and password and birthdate:
+        data = request.form
+        required_fields = ['username', 'email', 'phonenumber', 'password', 'birthdate']
+        
+        if checkField(data, required_fields):
+            username = data.get('username')
+            email = data.get('email')
+            phonenumber = data.get('phonenumber')
+            password = data.get('password')
+            birthdate = data.get('birthdate')
+            
             try:
                 cursor = connection.cursor()
                 query = "INSERT INTO \"Konectoi\".\"User\" (username, email, phonenumber, password, birthdate) VALUES (%s, %s, %s, %s, %s)"
@@ -51,7 +54,7 @@ def signup():
         return jsonify({"error": "Method not allowed"}), 405
 
 
-@app.route("/users", methods=['GET'])
+@app.route("/getAll", methods=['GET'])
 def get_users():
     try:
         cursor = connection.cursor(cursor_factory=extras.RealDictCursor)
@@ -65,28 +68,29 @@ def get_users():
         print("Error:", e)
         return ({"error": "An error occurred while fetching users"}), 500
 
-
 @app.route("/signin", methods=['POST'])
 def signin():
     if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
+        data = request.form
+        required_fields = ['username', 'password']
         
-        if username and password:
-            user = get_user_by_username_password(connection, username, password)
+        if checkField(data, required_fields):
+            username = data.get('username')
+            password = data.get('password')
+            user = getByUsernamePassword(connection, username, password)
             if user:
                 return jsonify({"user": user}), 200
             else:
                 return jsonify({"error": "User not found or incorrect credentials"}), 404
         else:
-            return jsonify({"error": "Missing username or password"}), 400
+            return jsonify({"error": "Missing required fields"}), 400
     else:
         return jsonify({"error": "Method not allowed"}), 405
 
-@app.route("/users/<int:id>", methods=['DELETE'])
+@app.route("/delete/<int:id>", methods=['DELETE'])
 def delete_user(id):
     try:
-        if user_exists(connection, id):
+        if getById(connection, id):
             cursor = connection.cursor()
             query = "DELETE FROM \"Konectoi\".\"User\" WHERE id = %s"
             cursor.execute(query, (id,))
@@ -101,13 +105,15 @@ def delete_user(id):
         return jsonify({"error": "An error occurred while deleting user"}), 500
 
 
-
-@app.route("/users/<int:id>", methods=['PUT'])
+@app.route("/update/<int:id>", methods=['PUT'])
 def update_user(id):
-    data = request.form
-    if request.method == 'PUT' and data:
-        fields_to_update = {key: data[key] for key in data if key in ['username', 'email', 'phonenumber', 'birthdate', 'password']}
-        if fields_to_update:
+    if request.method == 'PUT':
+        data = request.form
+        required_fields = ['username', 'email', 'phonenumber', 'birthdate', 'password']
+        
+        if checkField(data, required_fields):
+            fields_to_update = {key: data[key] for key in data if key in required_fields}
+            
             try:
                 cursor = connection.cursor()
                 set_clause = ", ".join([f"{field} = %s" for field in fields_to_update])
@@ -119,9 +125,10 @@ def update_user(id):
             except Exception as e:
                 return jsonify({"error": f"An error occurred while updating user: {e}"}), 500
         else:
-            return jsonify({"error": "No valid fields provided for update"}), 400
+            return jsonify({"error": "Missing required fields"}), 400
     else:
-        return jsonify({"error": "Invalid request or no data provided"}), 400
+        return jsonify({"error": "Invalid request method"}), 405
+
 
 
 if __name__ == "__main__":

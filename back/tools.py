@@ -1,5 +1,8 @@
         
-def user_exists(connection, user_id):
+from datetime import datetime
+
+
+def getById(connection, user_id):
     try:
         cursor = connection.cursor()
         query = "SELECT id FROM \"Konectoi\".\"User\" WHERE id = %s"
@@ -12,7 +15,7 @@ def user_exists(connection, user_id):
         return False
     
 
-def get_user_by_username_password(connection, username, password):
+def getByUsernamePassword(connection, username, password):
     try:
         cursor = connection.cursor()
         query = "SELECT * FROM \"Konectoi\".\"User\" WHERE username = %s AND password = %s"
@@ -23,3 +26,10 @@ def get_user_by_username_password(connection, username, password):
     except Exception as e:
         print("Error:", e)
         return None
+
+
+def checkField(data, required_fields):
+    for field in required_fields:
+        if field not in data or not data[field]:
+            return False
+    return True
