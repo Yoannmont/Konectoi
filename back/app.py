@@ -33,8 +33,8 @@ def signin():
             password = data.get('password')
             user = getByUsernamePassword(connection, username, password)
             if user:
-                decodedToken = decode_token(generate_token(user.get('id')),'secret_key')
-                return jsonify({"user": user,"decodedToken" : decodedToken}), 200
+                token = generate_token(user.get('id'))
+                return jsonify({"user": user, "token":token }), 200
             else:
                 return jsonify({"error": "User not found or incorrect credentials"}), 404
         else:
