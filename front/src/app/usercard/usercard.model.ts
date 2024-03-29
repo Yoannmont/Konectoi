@@ -4,7 +4,7 @@ export class UserCard{
         public username:string,
         public password : string,
         public email : string,
-        public birthdate : Date,
+        public birthdate : string,
         public phonenumber : string
         )
     {}

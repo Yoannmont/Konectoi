@@ -8,11 +8,21 @@
     <label for="username">Nom d'utilisateur</label>
     <input type="text" class="form-control" id="username" formControlName="username" placeholder="Entrez votre nom d'utilisateur" required>
   </div>
+  <br>
   <div class="form-group">
     <label for="password">Mot de passe</label>
-    <input type="password" class="form-control" id="password" placeholder="Entrez votre mot de passe" required>
+    <input type="password" class="form-control" id="password" formControlName="password" placeholder="Entrez votre mot de passe" required>
   </div>
+  <br>
   <button type="button" class="btn btn-primary" (click)="onSubmitLogin()">Se connecter</button>
+  <div *ngIf="currentUsercard">{{currentUsercard}}</div>
+  <div class="text-center">
+    <p>Pas encore membre ? <a routerLink="/signup">S'inscrire</a></p>
+    <p>ou connectez-vous avec : </p>
+    <button  data-mdb-ripple-init type="button" class="btn btn-secondary btn-floating mx-1">
+      <i class="fab fa-google"></i>
+    </button>
+  </div>
 </form>
-
+<br>
 </div>

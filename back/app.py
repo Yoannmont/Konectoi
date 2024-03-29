@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 import psycopg2
 from psycopg2 import extras
 from dotenv import load_dotenv
-from tools import getById, getByUsernamePassword,checkField
+from tools import getById, getByUsernamePassword,checkField, format_form
 from flask_cors import CORS
 
 
@@ -27,9 +27,9 @@ except Exception as e:
 @app.route("/signup", methods=['POST'])
 def signup():
     if request.method == 'POST':
-        data = request.form
-        required_fields = ['username', 'email', 'phonenumber', 'password', 'birthdate']
+        data = format_form(request.form)
         
+        required_fields = ['username', 'email', 'phonenumber', 'password', 'birthdate']
         if checkField(data, required_fields):
             username = data.get('username')
             email = data.get('email')
@@ -39,7 +39,7 @@ def signup():
             
             try:
                 cursor = connection.cursor()
-                query = "INSERT INTO \"Konectoi\".\"User\" (username, email, phonenumber, password, birthdate) VALUES (%s, %s, %s, %s, %s);"
+                query = "INSERT INTO Konectoi.User (username, email, phonenumber, password, birthdate) VALUES (%s, %s, %s, %s, %s);"
                 cursor.execute(query, (username, email, phonenumber, password, birthdate))
                 connection.commit()
                 return jsonify({"message": "User signed up successfully!"}), 201
@@ -61,7 +61,7 @@ def signup():
 def get_users():
     try:
         cursor = connection.cursor(cursor_factory=extras.RealDictCursor)
-        query = "SELECT * FROM \"Konectoi\".\"User\";"
+        query = "SELECT * FROM Konectoi.User;"
         cursor.execute(query)
         users = cursor.fetchall()
         cursor.close()
@@ -79,7 +79,7 @@ def get_users():
 @app.route("/signin", methods=['POST'])
 def signin():
     if request.method == 'POST':
-        data = request.form
+        data = format_form(request.form)
         required_fields = ['username', 'password']
         
         if checkField(data, required_fields):
@@ -100,7 +100,7 @@ def delete_user(id):
     try:
         if getById(connection, id):
             cursor = connection.cursor()
-            query = "DELETE FROM \"Konectoi\".\"User\" WHERE id = %s"
+            query = "DELETE FROM Konectoi.User WHERE id = %s"
             cursor.execute(query, (id,))
             connection.commit()
             cursor.close()
@@ -125,7 +125,7 @@ def update_user(id):
             try:
                 cursor = connection.cursor()
                 set_clause = ", ".join([f"{field} = %s" for field in fields_to_update])
-                query = f"UPDATE \"Konectoi\".\"User\" SET {set_clause} WHERE id = %s"
+                query = f"UPDATE Konectoi.User SET {set_clause} WHERE id = %s"
                 cursor.execute(query, (*fields_to_update.values(), id))
                 connection.commit()
                 cursor.close()

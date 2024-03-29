@@ -1,4 +1,4 @@
 <p>Liste des utilisateurs inscrits</p>
 <div class="usercards">
-    <app-usercard *ngFor="let usercard of usercards" [usercard]="usercard"></app-usercard>
+    <app-usercard *ngFor="let usercard of usercards$ | async" [usercard]="usercard"></app-usercard>
 </div>

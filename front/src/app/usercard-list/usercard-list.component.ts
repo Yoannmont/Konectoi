@@ -3,7 +3,7 @@ import { UsercardComponent } from '../usercard/usercard.component';
 import { UserCard } from '../usercard/usercard.model';
 import { KonectoiService } from '../services/konectoi.service';
 import { CommonModule } from '@angular/common';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, map, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-usercard-list',
@@ -14,7 +14,7 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class UsercardListComponent implements OnInit, OnDestroy{
 
-  usercards! : UserCard[];
+  usercards$! : Observable<UserCard[]>;
   private destroy$! : Subject<boolean>;
   constructor(private konectoiService : KonectoiService){};
   ngOnInit() : void {
@@ -23,9 +23,12 @@ export class UsercardListComponent implements OnInit, OnDestroy{
   }
 
   public getUsers() : void {
-    this.konectoiService.getAllUsers().pipe(takeUntil(this.destroy$)).subscribe((usercards : any) =>{
-     this.usercards = usercards["AllUser"];}
-     );
+    this.usercards$ = this.konectoiService.getAllUsers().pipe(
+      takeUntil(this.destroy$),
+      map((response : any) => {
+        return response['AllUser']}),
+    )
+
   
   
   }

@@ -8,8 +8,7 @@
         <div class="card-body">
           <h5 class="card-title">{{usercard.email}}</h5>
           <p class="card-text">Joignable au {{usercard.phonenumber}}</p>
-          <a routerLink="" class="btn btn-primary">Bouton test</a>
         </div>
-        <div class="card-footer text-muted">{{usercard.birthdate | date : "d MMMM YYYY"}}</div>
+        <div class="card-footer text-muted">{{usercard.birthdate | date : "dd MMMM YYYY"}}</div>
 </div>
 </div>
