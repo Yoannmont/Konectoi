@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { UserCard } from "../usercard/usercard.model";
-import { HttpClient, HttpRequest } from "@angular/common/http";
+import { HttpClient, HttpRequest, HttpHeaders } from "@angular/common/http";
 import { Observable, catchError, last, map, of, tap } from "rxjs";
 import { HttpHeaders } from "@angular/common/http";
 import { FormGroup } from "@angular/forms";
