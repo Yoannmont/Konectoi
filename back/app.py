@@ -1,12 +1,9 @@
-from flask import Flask, request, jsonify
 import psycopg2
+
+from flask import Flask, request, jsonify
 from psycopg2 import extras
-from dotenv import load_dotenv
-from tools import getById, getByUsernamePassword,checkField, format_form
+from tools import getById, getByUsernamePassword,checkField, format_form, generate_token,decode_token
 from flask_cors import CORS
-
-
-load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
@@ -22,6 +19,28 @@ try:
 except Exception as e:
     print("Error:", e)
 
+
+
+
+@app.route("/signin", methods=['POST'])
+def signin():
+    if request.method == 'POST':
+        data = format_form(request.form)
+        required_fields = ['username', 'password']
+        
+        if checkField(data, required_fields):
+            username = data.get('username')
+            password = data.get('password')
+            user = getByUsernamePassword(connection, username, password)
+            if user:
+                decodedToken = decode_token(generate_token(user.get('id')),'secret_key')
+                return jsonify({"user": user,"decodedToken" : decodedToken}), 200
+            else:
+                return jsonify({"error": "User not found or incorrect credentials"}), 404
+        else:
+            return jsonify({"error": "Missing required fields"}), 400
+    else:
+        return jsonify({"error": "Method not allowed"}), 405
 
 
 @app.route("/signup", methods=['POST'])
@@ -75,26 +94,6 @@ def get_users():
     finally:
         if cursor:
             cursor.close()
-
-
-@app.route("/signin", methods=['POST'])
-def signin():
-    if request.method == 'POST':
-        data = format_form(request.form)
-        required_fields = ['username', 'password']
-        
-        if checkField(data, required_fields):
-            username = data.get('username')
-            password = data.get('password')
-            user = getByUsernamePassword(connection, username, password)
-            if user:
-                return jsonify({"user": user}), 200
-            else:
-                return jsonify({"error": "User not found or incorrect credentials"}), 404
-        else:
-            return jsonify({"error": "Missing required fields"}), 400
-    else:
-        return jsonify({"error": "Method not allowed"}), 405
 
 
 @app.route("/delete/<int:id>", methods=['DELETE'])
