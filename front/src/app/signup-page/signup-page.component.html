@@ -1,4 +1,6 @@
-<div class="signup">
+<!-- <div class="signup" [ngClass]="{ 'newsignup' :!!(usercardPreview$ |async)}"> -->
+    <div class="signup">
+    <div class="form">
     <div class="connectText"> Pas de compte ? Inscrivez-vous !</div>
     <form [formGroup]="signupForm" (ngSubmit)="onSubmitSignUp()">
         <div class="form-group">
@@ -34,9 +36,13 @@
         </div>
         <br>
         <button type="submit" class="btn btn-primary" >S'inscrire</button>
+        <br>
     </form>
-    <div *ngIf="usercardPreview$ | async as usercard"> <div class="previewText"> Voici un aperçu de votre future carte de membre</div>
-    <app-usercard *ngIf="usercardPreview$ | async as usercard" [usercard]="usercard"></app-usercard>
     </div>
+
+    <!-- <div *ngIf="(usercardPreview$ | async) as usercardPreview" class="preview"> 
+        <div class="previewText"> Voici un aperçu de votre future carte de membre</div>
+        <app-usercard  [usercard]="usercardPreview"></app-usercard>
+    </div> -->
     <br>
   </div>

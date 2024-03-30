@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { KonectoiService } from '../services/konectoi.service';
-import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
+import { TokenService } from '../services/token.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -12,15 +13,16 @@ import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit{
-  connected! : boolean;
+  connected! : Boolean;
 
-  constructor(private konectoiService : KonectoiService, private router: Router){}
+  constructor(public tokenService : TokenService, private authService : AuthService, private route : Router){}
 
   ngOnInit() : void {
-    this.connected = this.konectoiService.connected;
+    this.connected = this.tokenService.isLogged();
   }
 
   logOut() : void{
-    this.router.navigateByUrl('/login')
+    this.tokenService.clearToken();
+    this.route.navigateByUrl("/login");
   }
 }

@@ -4,6 +4,9 @@
   "newProjectRoot": "projects",
   "projects": {
     "Konectoi": {
+      "i18n": {
+        "sourceLocale" : "fr"
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:class": {

@@ -12,11 +12,10 @@ import { RouterLink } from '@angular/router';
 })
 export class UsercardComponent implements OnInit{
   @Input() usercard! : UserCard;
+  link! : string;
 
   ngOnInit(): void {
-  }
-
-  testButton() : void{
-    console.log("success");
+    const randomNumber = Math.floor(Math.random()*10)+270;
+    this.link = "https://mdbcdn.b-cdn.net/img/new/standard/nature/" + randomNumber.toString() + ".webp";
   }
 }

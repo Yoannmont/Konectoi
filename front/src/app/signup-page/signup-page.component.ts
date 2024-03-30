@@ -19,18 +19,17 @@ import { Router } from '@angular/router';
 export class SignupPageComponent implements OnInit, OnDestroy{
   signupForm! : FormGroup;
   usercardPreview$! : Observable<UserCard>;
-  signUpSuccess : boolean = false;
   destroy$! : Subject<boolean>;
   
   constructor(public konectoiService : KonectoiService, private formBuilder : FormBuilder, private route : Router ){}
   ngOnInit(): void {
     this.destroy$ = new Subject<boolean>();
     this.signupForm = this.formBuilder.group({
-      username : [null, [Validators.required]],
-      password : [null, [Validators.required]],
-      email : [null, [Validators.required, Validators.email]],
-      birthdate : [null, [Validators.required]],
-      phonenumber : [null, [Validators.required]],
+      username : ['', [Validators.required]],
+      password : ['', [Validators.required]],
+      email : ['', [Validators.required, Validators.email]],
+      birthdate : ['', [Validators.required]],
+      phonenumber : ['', [Validators.required]],
     })
 
     this.usercardPreview$ = this.signupForm.valueChanges.pipe(
@@ -48,13 +47,8 @@ export class SignupPageComponent implements OnInit, OnDestroy{
   signUp() :void{
     this.konectoiService.signUp(
       this.signupForm
-      ).pipe(takeUntil(this.destroy$)).subscribe((string) =>{
-        if(string.message ==="User signed up successfully!"){
-          this.signUpSuccess = true;
-          this.konectoiService.connected = true;
-          this.route.navigateByUrl("/usercards");
-        }
-        console.log(string);
+      ).pipe(takeUntil(this.destroy$)).subscribe(() =>{
+        this.route.navigateByUrl('/login');
       }
 )
   }

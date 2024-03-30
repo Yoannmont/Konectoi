@@ -23,10 +23,7 @@ export class KonectoiService{
         .pipe(catchError(this.handleError<UserCard[]>("getAll")));
     }
 
-    public signIn(username : String, password : String) : Observable<UserCard>{
-        return this.http.post<UserCard>(this.BASE_URL + "/signin", {username, password}, this.httpOptions)
-        .pipe(catchError(this.handleError<UserCard>("signin")));
-    }
+
 
     public signUp(formData : FormGroup) : Observable<any>{
       const data = formData.value;
@@ -35,14 +32,14 @@ export class KonectoiService{
 
 
 
-    private handleError<T>(
-        request: string,
-        result?: T
-      ): (error: Error) => Observable<T> {
-        return (error: Error): Observable<T> => {
-          return of(result as T);
-        };
-      }
+  private handleError<T>(
+    request: string,
+    result?: T
+  ): (error: Error) => Observable<T> {
+    return (error: Error): Observable<T> => {
+      return of(result as T);
+    };
+  }
       
     public connected : boolean = false;
 

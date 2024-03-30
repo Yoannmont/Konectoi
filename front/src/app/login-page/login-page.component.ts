@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { Observable, Subject, map, takeUntil } from 'rxjs';
 import { UserCard } from '../usercard/usercard.model';
+import { AuthService } from '../services/auth.service';
+import { TokenService } from '../services/token.service';
 
 @Component({
   selector: 'app-login-page',
@@ -20,7 +22,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   loginSuccess : boolean = false;
   destroy$!: Subject<boolean>;
   currentUsercard! : UserCard;
-  constructor(private konectoiService : KonectoiService, private formBuilder : FormBuilder , private router : Router){}
+  constructor(private authService: AuthService, private konectoiService : KonectoiService, private formBuilder : FormBuilder , private router : Router, private tokenService : TokenService){}
 
   ngOnInit() : void {
     this.destroy$ = new Subject<boolean>();
@@ -35,20 +37,20 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   signIn() : void {
-    this.konectoiService.signIn(this.loginForm.value.username, this.loginForm.value.password)
+    this.authService.signIn(this.loginForm.value.username, this.loginForm.value.password)
     .pipe(
-      takeUntil(this.destroy$),
-      map((response : any) => {
-        return response["user"]
-    }))
-    .subscribe( (currentusercard) =>{
-      this.currentUsercard = currentusercard;
+      takeUntil(this.destroy$)
+      )
+    .subscribe( (response : any) =>{
+      this.currentUsercard = response["user"];
+      this.tokenService.saveToken(response["token"]);
     }
     )
   }
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
+    
   }
 
   
