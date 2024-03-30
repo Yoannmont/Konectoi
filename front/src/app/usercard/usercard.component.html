@@ -1,14 +1,19 @@
-<div class="usercard">
-<div class="card text-center">
-        <div class="bg-image hover-overlay" mdbRipple rippleColor="light">
-                <img src={{link}} class="img-fluid"/>
-                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+<!DOCTYPE html>
+<html lang="en">
+<body>
+        <div class="usercard">
+                <div class="card text-center">
+                        <div class="bg-image hover-overlay" mdbRipple rippleColor="light">
+                                <img src={{link}} class="img-fluid" />
+                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                        </div>
+                        <div class="card-header"><h5>{{usercard.username}}</h5></div>
+                        <div class="card-body">
+                                <p class="card-title">email : {{usercard.email}}</p>
+                                <p class="card-text">Tél : {{usercard.phonenumber}}</p>
+                                <p class="card-text">date de naissance : {{usercard.birthdate | date : "dd MMMM YYYY"}}</p>
+                        </div>
+                </div>
         </div>
-        <div class="card-header">{{usercard.username}}</div>
-        <div class="card-body">
-          <h5 class="card-title">{{usercard.email}}</h5>
-          <p class="card-text">Joignable au {{usercard.phonenumber}}</p>
-        </div>
-        <div class="card-footer text-muted">{{usercard.birthdate | date : "dd MMMM YYYY"}}</div>
-</div>
-</div>
+</body>
+</html>
