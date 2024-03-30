@@ -2,7 +2,7 @@ import psycopg2
 
 from flask import Flask, request, jsonify
 from psycopg2 import extras
-from tools import getById, getByUsernamePassword,checkField, format_form, generate_token,decode_token
+from tools import getById, getByUsernamePassword,checkField, format_form, generateToken
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -33,7 +33,7 @@ def signin():
             password = data.get('password')
             user = getByUsernamePassword(connection, username, password)
             if user:
-                token = generate_token(user.get('id'))
+                token = generateToken(user.get('id'))
                 return jsonify({"user": user, "token":token }), 200
             else:
                 return jsonify({"error": "User not found or incorrect credentials"}), 404

@@ -47,7 +47,7 @@ def format_form(data):
         return data
 
 
-def generate_token(user_id):
+def generateToken(user_id):
     createdAt = datetime.now(UTC)
     expiresAt = createdAt + timedelta(minutes=5)
     payload = {
@@ -57,7 +57,7 @@ def generate_token(user_id):
     }
     return jwt.encode(payload, 'secret_key', algorithm='HS256')
 
-def decode_token(token, secret_key):
+def decodeToken(token, secret_key):
     try:
         payload = jwt.decode(token, secret_key, algorithms=['HS256'])
         return payload
