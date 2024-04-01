@@ -36,10 +36,9 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   signIn() : void {
-    this.authService.signIn(this.loginForm.value.username, this.loginForm.value.password)
-    .pipe(
-      takeUntil(this.destroy$)
-      )
+    this.authService.signIn(this.loginForm.value.username, this.loginForm.value.password).pipe(
+      takeUntil(this.destroy$),
+    )
     .subscribe( (response : any) =>{
       this.tokenService.saveToken(response["token"]);
     }

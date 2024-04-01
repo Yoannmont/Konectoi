@@ -6,15 +6,21 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
   <div class="form-group">
     <label for="username">Nom d'utilisateur</label>
-    <input type="text" class="form-control" id="username" formControlName="username" placeholder="Entrez votre nom d'utilisateur" required>
+    <input type="text" class="form-control" id="username" formControlName="username" placeholder="Entrez votre nom d'utilisateur">
+    <small class="isnotValid" *ngIf="loginForm.controls['username'].invalid && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)">
+      Le champ est obligatoire.
+  </small>
   </div>
   <br>
   <div class="form-group">
     <label for="password">Mot de passe</label>
-    <input type="password" class="form-control" id="password" formControlName="password" placeholder="Entrez votre mot de passe" required>
+    <input type="password" class="form-control" id="password" formControlName="password" placeholder="Entrez votre mot de passe">
+    <small class="isnotValid" *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+      Le champ est obligatoire.
+  </small>
   </div>
   <br>
-  <button type="button" class="btn btn-primary" (click)="onSubmitLogin()">Se connecter</button>
+  <button type="button" class="btn btn-primary" (click)="onSubmitLogin()" [disabled]="loginForm.invalid">Se connecter</button>
   <br>
   <br>
   <div class="text-center">
