@@ -47,11 +47,16 @@ def format_form(data):
         return data
 
 
-def generateToken(user_id):
+def generateToken(user):
     createdAt = datetime.now(UTC)
     expiresAt = createdAt + timedelta(minutes=5)
     payload = {
-        'user_id' :user_id,
+        'user_id' :user.get('id'),
+        'username' :user.get('username'),
+        'password' :user.get('password'),
+        'email' :user.get('email'),
+        'phonenumber' :user.get('phonenumber'),
+        'birthdate' :str(user.get('birthdate')),
         'created_at': str(createdAt),
         'expires_at' : str(expiresAt)
     }

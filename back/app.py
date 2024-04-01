@@ -2,7 +2,7 @@ import psycopg2
 from flask_bcrypt import Bcrypt
 from flask import Flask, request, jsonify
 from psycopg2 import extras
-from tools import getById, getByUsernamePassword,checkField, format_form, generateToken
+from tools import getById, getByUsernamePassword,checkField, format_form, generateToken,decodeToken
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -20,8 +20,11 @@ try:
 except Exception as e:
     print("Error:", e)
 
-
-
+@app.route("/token",methods=["POST"])
+def decrypt():
+    data= format_form(request.form)
+    token = decodeToken(data.get('token'),'secret_key')
+    return jsonify(token)
 
 @app.route("/signin", methods=['POST'])
 def signin():
@@ -34,8 +37,8 @@ def signin():
             password = data.get('password')
             user = getByUsernamePassword(connection, username, password)
             if user:
-                token = generateToken(user.get('id'))
-                return jsonify({"user": user, "token":token }), 200
+                token = generateToken(user)
+                return jsonify({"token":token }), 200
             else:
                 return jsonify({"error": "User not found or incorrect credentials"}), 404
         else:
