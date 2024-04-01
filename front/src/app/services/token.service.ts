@@ -28,7 +28,6 @@ export class TokenService {
       return !! token;
     }
     catch(error){
-      console.error(error);
       return false;
     }
   }

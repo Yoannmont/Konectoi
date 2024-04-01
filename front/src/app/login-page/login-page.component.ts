@@ -21,7 +21,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   loginForm! : FormGroup;
   loginSuccess : boolean = false;
   destroy$!: Subject<boolean>;
-  currentUsercard! : UserCard;
   constructor(private authService: AuthService, private konectoiService : KonectoiService, private formBuilder : FormBuilder , private router : Router, private tokenService : TokenService){}
 
   ngOnInit() : void {
@@ -42,7 +41,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$)
       )
     .subscribe( (response : any) =>{
-      this.currentUsercard = response["user"];
       this.tokenService.saveToken(response["token"]);
     }
     )
@@ -50,10 +48,5 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
-    
   }
-
-  
-
-
 }

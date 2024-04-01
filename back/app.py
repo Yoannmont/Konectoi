@@ -76,12 +76,12 @@ def signup():
                 return jsonify({"message": "User signed up successfully!"}), 201
             
             except Exception as e:
-                print("Error:", e)
+                print("Error:", e.pgcode)
+                
                 return jsonify({"error": "An error occurred while signing up"}), 500
             
             finally:
-                if cursor:
-                    cursor.close()
+                connection.commit()
         else:
             return jsonify({"error": "Missing required information"}), 400
     else:
@@ -104,8 +104,7 @@ def get_users():
         return ({"error": "An error occurred while fetching users"}), 500
     
     finally:
-        if cursor:
-            cursor.close()
+        connection.commit()
 
 
 @app.route("/delete/<int:id>", methods=['DELETE'])
