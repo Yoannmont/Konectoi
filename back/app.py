@@ -1,5 +1,5 @@
 import psycopg2
-
+from flask_bcrypt import Bcrypt
 from flask import Flask, request, jsonify
 from psycopg2 import extras
 from tools import getById, getByUsernamePassword,checkField, format_form, generateToken
@@ -7,6 +7,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
+bcrypt = Bcrypt(app)
 
 try:
     connection = psycopg2.connect(
@@ -53,7 +54,7 @@ def signup():
             username = data.get('username')
             email = data.get('email')
             phonenumber = data.get('phonenumber')
-            password = data.get('password')
+            password = bcrypt.generate_password_hash(data.get('password')).decode('utf-8')
             birthdate = data.get('birthdate')
             
             try:
