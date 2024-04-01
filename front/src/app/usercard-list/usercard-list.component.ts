@@ -3,7 +3,8 @@ import { UsercardComponent } from '../usercard/usercard.component';
 import { UserCard } from '../usercard/usercard.model';
 import { KonectoiService } from '../services/konectoi.service';
 import { CommonModule } from '@angular/common';
-import { Observable, Subject, map, takeUntil } from 'rxjs';
+import { Observable, Subject, filter, map, takeUntil } from 'rxjs';
+import { TokenService } from '../services/token.service';
 
 @Component({
   selector: 'app-usercard-list',
@@ -16,7 +17,7 @@ export class UsercardListComponent implements OnInit, OnDestroy{
 
   usercards$! : Observable<UserCard[]>;
   private destroy$! : Subject<boolean>;
-  constructor(private konectoiService : KonectoiService){};
+  constructor(private konectoiService : KonectoiService, private tokenService : TokenService){};
   ngOnInit() : void {
     this.destroy$ = new Subject<boolean>();
     this.getUsers();
@@ -27,6 +28,9 @@ export class UsercardListComponent implements OnInit, OnDestroy{
       takeUntil(this.destroy$),
       map((response : any) => {
         return response['AllUser']}),
+        map((usercards : UserCard[])  => {
+          return usercards.filter((usercard : UserCard) => usercard.id !== this.tokenService.getInfoFromCurrentToken().user_id)
+        }),
     )
 
   

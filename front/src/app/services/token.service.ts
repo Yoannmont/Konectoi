@@ -49,4 +49,17 @@ export class TokenService {
     const isValid = decodedToken && (expirationTS > Date.now());
     return isValid;
   }
+
+  _getInfoFromToken(token : string | null) : any {
+    if (token === null){
+      return null;
+    }
+    let decodedToken : any = jwtDecode(token);
+    return decodedToken
+  }
+
+  getInfoFromCurrentToken() : any{
+    const token = this.getToken();
+    return this._getInfoFromToken(token);
+  }
 }

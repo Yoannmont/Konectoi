@@ -1,14 +1,21 @@
 .usercards {
     display: flex;
     flex-wrap: wrap;
-    max-width: 100%;
+    max-width:100%;
     overflow-y: auto;
-  }
+    text-align: center;
+}
   
-  app-usercard {
+  .usercards_list {
     flex: 0 0 auto;
     width: 300px;
-    margin-right: 10px;
-    margin-bottom: 10px;
+    // display: inline-flex;
+    margin : 2% auto;
   }
+  
+  p{
+    font-weight: 600;
+    font-size: 20px;
+  }
+
   

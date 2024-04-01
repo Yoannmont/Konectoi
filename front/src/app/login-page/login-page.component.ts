@@ -27,8 +27,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   ngOnInit() : void {
     this.destroy$ = new Subject<boolean>();
     this.loginForm = this.formBuilder.group({
-      username : ["y", [Validators.required]],
-      password : ["y", [Validators.required]]
+      username : ["yo", [Validators.required]],
+      password : ["uo", [Validators.required]]
     })
   }
 

@@ -1,9 +1,22 @@
+import sys
+import subprocess
+import pkg_resources
+
+required = {'flask', 'psycopg2', 'flask_cors', 'flask_bcrypt'}
+installed = {pkg.key for pkg in pkg_resources.working_set}
+missing = required - installed
+
+if missing:
+    python = sys.executable
+    subprocess.check_call([python, '-m', 'pip', 'install', *missing], stdout=subprocess.DEVNULL)
+
 import psycopg2
 from flask_bcrypt import Bcrypt
 from flask import Flask, request, jsonify
 from psycopg2 import extras
 from tools import getById, getByUsernamePassword,checkField, format_form, generateToken
 from flask_cors import CORS
+
 
 app = Flask(__name__)
 CORS(app)
