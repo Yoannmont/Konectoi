@@ -76,7 +76,7 @@ def signup():
                 return jsonify({"message": "User signed up successfully!"}), 201
             
             except Exception as e:
-                print("Error:", e.pgcode)
+                print("Error:", e)
                 
                 return jsonify({"error": "An error occurred while signing up"}), 500
             

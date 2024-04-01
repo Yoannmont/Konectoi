@@ -49,26 +49,26 @@
                     <div class="formbg">
                         <div class="formbg-inner padding-horizontal--48">
                             <span class="padding-bottom--15">Update your informations</span>
-                            <form id="stripe-login">
+                            <form id="stripe-login" [formGroup]="updateForm">
                                 <div class="field padding-bottom--24">
                                     <label for="username">username</label>
-                                    <input type="username" name="username">
+                                    <input type="username" name="username" formControlName="username">
                                 </div>
                                 <div class="field padding-bottom--24">
                                     <label for="password">password</label>
-                                    <input type="password" name="password">
+                                    <input type="password" name="password" formControlName="password">
                                 </div>
                                 <div class="field padding-bottom--24">
                                     <label for="email">Email</label>
-                                    <input type="email" name="email">
+                                    <input type="email" name="email" formControlName="email">
                                 </div>
                                 <div class="field padding-bottom--24">
                                     <label for="phonenumber">PhoneNumber</label>
-                                    <input type="phonenumber" name="phonenumber">
+                                    <input type="phonenumber" name="phonenumber" formControlName="phonenumber">
                                 </div>
                                 <div class="field padding-bottom--24">
                                     <label for="birthdate">Birthdate</label>
-                                    <input type="birthdate" name="birthdate">
+                                    <input type="birthdate" name="birthdate" formControlName="birthdate">
                                 </div>
                                 <div class="submit">
                                     <div class="confirm padding-bottom--24">
@@ -87,6 +87,7 @@
             </div>
         </div>
     </div>
+
 </body>
 
 </html>
