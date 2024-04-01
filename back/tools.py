@@ -62,6 +62,7 @@ def generateToken(user):
     }
     return jwt.encode(payload, 'secret_key', algorithm='HS256')
 
+
 def decodeToken(token, secret_key):
     try:
         payload = jwt.decode(token, secret_key, algorithms=['HS256'])

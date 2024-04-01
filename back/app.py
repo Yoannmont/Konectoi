@@ -20,11 +20,6 @@ try:
 except Exception as e:
     print("Error:", e)
 
-@app.route("/token",methods=["POST"])
-def decrypt():
-    data= format_form(request.form)
-    token = decodeToken(data.get('token'),'secret_key')
-    return jsonify(token)
 
 @app.route("/signin", methods=['POST'])
 def signin():
