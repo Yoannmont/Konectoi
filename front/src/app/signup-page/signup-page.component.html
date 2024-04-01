@@ -6,19 +6,25 @@
         <div class="form-group">
             <label  for="username">Nom d'utilisateur</label>
             <input type="text" id="username" class="form-control" formControlName="username" placeholder="ex : Bobby785"/>
-            
+            <small class="isnotValid" *ngIf="signupForm.controls['username'].invalid && (signupForm.controls['username'].dirty || signupForm.controls['username'].touched)">
+                Le champ est obligatoire.
+            </small>
         </div>
         <br>
         <div class="form-group">
             <label  for="email">Email</label>
             <input mdbLabel type="email" id="email" class="form-control" formControlName="email" placeholder="ex : bobby@gmail.com"/>
-            
+            <small class="isnotValid" *ngIf="signupForm.controls['email'].invalid && (signupForm.controls['email'].dirty || signupForm.controls['email'].touched)">
+                Veuillez écrire une adresse e-mail avec un format correct.
+            </small>
         </div>
         <br>
         <div class="form-group">
             <label  for="password">Mot de passe</label>
-            <input type="password" id="password" class="form-control" formControlName="password"/>
-            
+            <input type="password" id="password" class="form-control" formControlName="password" maxlength="20"/>
+            <small class="isnotValid" *ngIf="signupForm.controls['password'].invalid && (signupForm.controls['password'].dirty || signupForm.controls['password'].touched)">
+                Le champ est obligatoire.
+            </small>
         </div>
         <div class="col-auto">
             <span id="textExample" class="form-text"> Doit faire entre 8 et 20 caractères. </span>
@@ -26,16 +32,21 @@
         <br>
         <div class="form-group">
             <label  for="phonenumber">Numéro de téléphone</label>
-            <input type="tel" id="phonenumber" class="form-control" formControlName="phonenumber" placeholder="ex : 0600000000"/>
+            <input type="tel" id="phonenumber" class="form-control" formControlName="phonenumber" placeholder="ex : 0600000000" maxlength="10"/>
+            <small class="isnotValid" *ngIf="signupForm.controls['phonenumber'].invalid && (signupForm.controls['phonenumber'].dirty || signupForm.controls['phonenumber'].touched)">
+                <div *ngIf="signupForm.controls['phonenumber'].hasError('required')">Le champ est obligatoire.</div>
+            </small>
         </div>
         <br>
         <div class="form-group">
             <label  for="birthdate">Date de naissance</label>
             <input type="date" formControlName="birthdate" id="birthdate" class="form-control" required>
-
+            <small class="isnotValid" *ngIf="signupForm.controls['birthdate'].invalid && (signupForm.controls['birthdate'].dirty || signupForm.controls['birthdate'].touched)">
+                Le champ est obligatoire.
+            </small>
         </div>
         <br>
-        <button type="submit" class="btn btn-primary" >S'inscrire</button>
+        <button type="submit" class="btn btn-primary" [disabled]="signupForm.invalid">S'inscrire</button>
         <br>
     </form>
     </div>

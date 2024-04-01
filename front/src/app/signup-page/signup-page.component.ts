@@ -26,10 +26,10 @@ export class SignupPageComponent implements OnInit, OnDestroy{
     this.destroy$ = new Subject<boolean>();
     this.signupForm = this.formBuilder.group({
       username : ['', [Validators.required]],
-      password : ['', [Validators.required]],
+      password : ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
       email : ['', [Validators.required, Validators.email]],
       birthdate : ['', [Validators.required]],
-      phonenumber : ['', [Validators.required]],
+      phonenumber : ['', [Validators.required, Validators.maxLength(10)]],
     })
 
     this.usercardPreview$ = this.signupForm.valueChanges.pipe(
