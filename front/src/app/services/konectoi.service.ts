@@ -27,7 +27,8 @@ export class KonectoiService{
 
     public signUp(formData : FormGroup) : Observable<any>{
       const data = formData.value;
-      return this.http.post<any>(this.BASE_URL + "/signup", data, this.httpOptions);
+      return this.http.post<any>(this.BASE_URL + "/signup", data, this.httpOptions)
+      .pipe(catchError(this.handleError<any[]>("/signup")));
   }
 
 
